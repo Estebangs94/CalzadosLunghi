@@ -14,11 +14,14 @@ namespace CalzadosLunghi
     {
         private readonly ITipoMaterialData _tipoMaterialData;
 
+        [TempData]
+        public string Message { get; set; }
+
         public IndexModel(ITipoMaterialData tipoMaterialData)
         {
             _tipoMaterialData = tipoMaterialData;
         }
-
+      
         public IEnumerable<TipoMaterial> TipoMaterial { get;set; }
         public TipoMaterial Tipo { get; set; }
 

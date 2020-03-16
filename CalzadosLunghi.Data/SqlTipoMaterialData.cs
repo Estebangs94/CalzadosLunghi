@@ -47,7 +47,7 @@ namespace CalzadosLunghi.Data
             return result;
         }
 
-        public TipoMaterial GetById(int id)
+        public TipoMaterial GetById(int? id)
         {
             var tipoMaterial = _db.TipoMateriales.First(x => x.ID == id && x.EstaActivo == true);
             return tipoMaterial;

@@ -12,24 +12,24 @@ namespace CalzadosLunghi
 {
     public class DeleteModel : PageModel
     {
-        private readonly CalzadosLunghi.Data.CalzadosLunghiDbContext _context;
+        private readonly ITipoMaterialData _tipoMaterialData;
 
-        public DeleteModel(CalzadosLunghi.Data.CalzadosLunghiDbContext context)
+        public DeleteModel(ITipoMaterialData tipoMaterialData)
         {
-            _context = context;
+            _tipoMaterialData = tipoMaterialData;
         }
 
         [BindProperty]
         public TipoMaterial TipoMaterial { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public  IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            TipoMaterial = await _context.TipoMateriales.FirstOrDefaultAsync(m => m.ID == id);
+            TipoMaterial = _tipoMaterialData.GetById(id);
 
             if (TipoMaterial == null)
             {
@@ -45,13 +45,15 @@ namespace CalzadosLunghi
                 return NotFound();
             }
 
-            TipoMaterial = await _context.TipoMateriales.FindAsync(id);
+            TipoMaterial = _tipoMaterialData.GetById(id);
 
             if (TipoMaterial != null)
             {
-                _context.TipoMateriales.Remove(TipoMaterial);
-                await _context.SaveChangesAsync();
+                _tipoMaterialData.Delete(TipoMaterial.ID);
+                await _tipoMaterialData.Commit();
             }
+
+            TempData["Message"] = $"Se ha eliminado el tipo de material: {TipoMaterial.Nombre}!";
 
             return RedirectToPage("./Index");
         }

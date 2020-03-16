@@ -39,7 +39,9 @@ namespace CalzadosLunghi
             var result = _tipoMaterialData.Add(TipoMaterial);
             await _tipoMaterialData.Commit();
 
-            return RedirectToPage("./Index");
+            TempData["Message"] = "Se ha creado el siguiente tipo de material!";
+
+            return RedirectToPage("./Details", new {id = result.ID});
         }
     }
 }

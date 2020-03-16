@@ -12,23 +12,26 @@ namespace CalzadosLunghi
 {
     public class DetailsModel : PageModel
     {
-        private readonly CalzadosLunghi.Data.CalzadosLunghiDbContext _context;
+        private readonly ITipoMaterialData _tipoMaterialData;
 
-        public DetailsModel(CalzadosLunghi.Data.CalzadosLunghiDbContext context)
+        public DetailsModel(ITipoMaterialData tipoMaterialData)
         {
-            _context = context;
+            _tipoMaterialData = tipoMaterialData;
         }
 
         public TipoMaterial TipoMaterial { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        [TempData]
+        public string Message { get; set; }
+
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            TipoMaterial = await _context.TipoMateriales.FirstOrDefaultAsync(m => m.ID == id);
+            TipoMaterial = _tipoMaterialData.GetById(id);
 
             if (TipoMaterial == null)
             {
