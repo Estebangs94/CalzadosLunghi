@@ -53,7 +53,7 @@ namespace CalzadosLunghi
                 await _tipoMaterialData.Commit();
             }
 
-            TempData["Message"] = $"Se ha eliminado el tipo de material: {TipoMaterial.Nombre}!";
+            TempData["Delete"] = $"Se ha eliminado el tipo de material: {TipoMaterial.Nombre}";
 
             return RedirectToPage("./Index");
         }

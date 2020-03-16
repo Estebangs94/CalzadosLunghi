@@ -15,7 +15,9 @@ namespace CalzadosLunghi
         private readonly ITipoMaterialData _tipoMaterialData;
 
         [TempData]
-        public string Message { get; set; }
+        public string Edit { get; set; }
+        [TempData]
+        public string Delete { get; set; }
 
         public IndexModel(ITipoMaterialData tipoMaterialData)
         {

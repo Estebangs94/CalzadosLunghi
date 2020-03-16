@@ -13,24 +13,24 @@ namespace CalzadosLunghi
 {
     public class EditModel : PageModel
     {
-        private readonly CalzadosLunghi.Data.CalzadosLunghiDbContext _context;
+        private readonly ITipoMaterialData _tipoMaterialData;
 
-        public EditModel(CalzadosLunghi.Data.CalzadosLunghiDbContext context)
+        public EditModel(ITipoMaterialData tipoMaterialData)
         {
-            _context = context;
+            _tipoMaterialData = tipoMaterialData;
         }
 
         [BindProperty]
         public TipoMaterial TipoMaterial { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public  IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            TipoMaterial = await _context.TipoMateriales.FirstOrDefaultAsync(m => m.ID == id);
+            TipoMaterial = _tipoMaterialData.GetById(id);
 
             if (TipoMaterial == null)
             {
@@ -48,11 +48,12 @@ namespace CalzadosLunghi
                 return Page();
             }
 
-            _context.Attach(TipoMaterial).State = EntityState.Modified;
+            TipoMaterial.EstaActivo = true;
+            _tipoMaterialData.Update(TipoMaterial);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _tipoMaterialData.Commit();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -66,12 +67,22 @@ namespace CalzadosLunghi
                 }
             }
 
+            TempData["Edit"] = $"Se ha editado el tipo de material: {TipoMaterial.Nombre}";
+
             return RedirectToPage("./Index");
         }
 
         private bool TipoMaterialExists(int id)
         {
-            return _context.TipoMateriales.Any(e => e.ID == id);
+            var result = _tipoMaterialData.GetById(id);
+            if(result != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

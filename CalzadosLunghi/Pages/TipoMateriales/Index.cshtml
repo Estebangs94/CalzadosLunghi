@@ -5,9 +5,14 @@
     ViewData["Title"] = "Index";
 }
 
-@if(Model.Message != null)
+@if (Model.Edit != null)
 {
-    <div class="alert alert-danger">@Model.Message</div>
+    <div class="alert alert-info">@Model.Edit</div>
+}
+
+@if (Model.Delete != null)
+{
+    <div class="alert alert-danger">@Model.Delete</div>
 }
 
 <h1>Listado</h1>
@@ -28,20 +33,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.TipoMaterial) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Detalles</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.TipoMaterial)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Detalles</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
