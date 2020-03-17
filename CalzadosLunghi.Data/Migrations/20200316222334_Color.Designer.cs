@@ -4,14 +4,16 @@ using CalzadosLunghi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CalzadosLunghi.Data.Migrations
 {
     [DbContext(typeof(CalzadosLunghiDbContext))]
-    partial class CalzadosLunghiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200316222334_Color")]
+    partial class Color
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace CalzadosLunghi.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("EstaActivo")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");

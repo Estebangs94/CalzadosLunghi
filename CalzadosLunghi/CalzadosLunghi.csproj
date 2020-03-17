@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Materiales\" />
     <Folder Include="Pages\Zapatos\" />
   </ItemGroup>
 

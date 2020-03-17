@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi.Data
 {

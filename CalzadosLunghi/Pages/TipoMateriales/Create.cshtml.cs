@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
 
-namespace CalzadosLunghi
+namespace CalzadosLunghi.Pages.TipoMateriales
 {
     public class CreateModel : PageModel
     {

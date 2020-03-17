@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using CalzadosLunghi.Data;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi
 {
@@ -30,6 +31,8 @@ namespace CalzadosLunghi
                 options.UseSqlServer(Configuration.GetConnectionString("CalzadosLunghiDb"));
             });
             services.AddScoped<ITipoMaterialData, SqlTipoMaterialData>();
+            services.AddScoped<IMaterialData, SqlMaterialData>();
+            services.AddScoped<IColorData, SqlColorData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

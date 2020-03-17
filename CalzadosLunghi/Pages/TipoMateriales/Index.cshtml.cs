@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
 
-namespace CalzadosLunghi
+namespace CalzadosLunghi.Pages.TipoMateriales
 {
     public class IndexModel : PageModel
     {

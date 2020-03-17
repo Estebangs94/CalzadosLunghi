@@ -1,0 +1,19 @@
+﻿@page
+@model CalzadosLunghi.Pages.Materiales.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (Model.Edit != null)
+{
+    <div class="alert alert-info">@Model.Edit</div>
+}
+
+@if (Model.Delete != null)
+{
+    <div class="alert alert-danger">@Model.Delete</div>
+}
+
+<h1>Lista de materiales</h1>
+<hr />
+
