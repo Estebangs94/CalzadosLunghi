@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalzadosLunghi.Data.Migrations
 {
     [DbContext(typeof(CalzadosLunghiDbContext))]
-    [Migration("20200316222334_Color")]
-    partial class Color
+    [Migration("20200322221422_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,10 +28,18 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("EstaActivo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MaterialId");
 
                     b.ToTable("Colores");
                 });
@@ -43,7 +51,7 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ColorID")
+                    b.Property<int>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<bool>("EstaActivo")
@@ -52,24 +60,38 @@ namespace CalzadosLunghi.Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TipoMaterialID")
+                    b.Property<int>("TipoMaterialId")
                         .HasColumnType("int");
 
                     b.Property<int>("UnidadDeMedida")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ZapatoID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("ColorID");
-
-                    b.HasIndex("TipoMaterialID");
-
-                    b.HasIndex("ZapatoID");
+                    b.HasIndex("TipoMaterialId");
 
                     b.ToTable("Materiales");
+                });
+
+            modelBuilder.Entity("CalzadosLunghi.Business.ParteZapato", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("EstaActivo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("FormadoPorMultipleMateriales")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ParteZapato");
                 });
 
             modelBuilder.Entity("CalzadosLunghi.Business.PrecioMaterial", b =>
@@ -88,12 +110,12 @@ namespace CalzadosLunghi.Data.Migrations
                     b.Property<DateTime>("FechaVigencia")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("MaterialID")
+                    b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MaterialID");
+                    b.HasIndex("MaterialId");
 
                     b.ToTable("PrecioMateriales");
                 });
@@ -105,8 +127,11 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("EstaActivo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TemporadaActual")
+                        .HasColumnType("int");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -146,79 +171,100 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContraFuerteID")
-                        .HasColumnType("int");
+                    b.Property<bool>("EstaActivo")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("ForroCapelladaID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ForroPlantillaID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PunteraID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TemporadaID")
+                    b.Property<int>("TemporadaId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ContraFuerteID");
-
-                    b.HasIndex("ForroCapelladaID");
-
-                    b.HasIndex("ForroPlantillaID");
-
-                    b.HasIndex("PunteraID");
-
-                    b.HasIndex("TemporadaID");
+                    b.HasIndex("TemporadaId");
 
                     b.ToTable("Zapatos");
                 });
 
+            modelBuilder.Entity("CalzadosLunghi.Business.ZapatoMaterial", b =>
+                {
+                    b.Property<int>("ZapatoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CantidadZapatosPorUnidad")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EstaActivo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ParteZapatoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ZapatoId", "MaterialId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("ParteZapatoId");
+
+                    b.ToTable("ZapatoMaterial");
+                });
+
+            modelBuilder.Entity("CalzadosLunghi.Business.Color", b =>
+                {
+                    b.HasOne("CalzadosLunghi.Business.Material", "Material")
+                        .WithMany("Colores")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CalzadosLunghi.Business.Material", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorID");
-
                     b.HasOne("CalzadosLunghi.Business.TipoMaterial", "TipoMaterial")
                         .WithMany()
-                        .HasForeignKey("TipoMaterialID");
-
-                    b.HasOne("CalzadosLunghi.Business.Zapato", null)
-                        .WithMany("Capellada")
-                        .HasForeignKey("ZapatoID");
+                        .HasForeignKey("TipoMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CalzadosLunghi.Business.PrecioMaterial", b =>
                 {
                     b.HasOne("CalzadosLunghi.Business.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialID");
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CalzadosLunghi.Business.Zapato", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Material", "ContraFuerte")
-                        .WithMany()
-                        .HasForeignKey("ContraFuerteID");
-
-                    b.HasOne("CalzadosLunghi.Business.Material", "ForroCapellada")
-                        .WithMany()
-                        .HasForeignKey("ForroCapelladaID");
-
-                    b.HasOne("CalzadosLunghi.Business.Material", "ForroPlantilla")
-                        .WithMany()
-                        .HasForeignKey("ForroPlantillaID");
-
-                    b.HasOne("CalzadosLunghi.Business.Material", "Puntera")
-                        .WithMany()
-                        .HasForeignKey("PunteraID");
-
                     b.HasOne("CalzadosLunghi.Business.Temporada", "Temporada")
+                        .WithMany("Zapatos")
+                        .HasForeignKey("TemporadaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CalzadosLunghi.Business.ZapatoMaterial", b =>
+                {
+                    b.HasOne("CalzadosLunghi.Business.Material", "Material")
+                        .WithMany("ZapatoMateriales")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CalzadosLunghi.Business.ParteZapato", "ParteZapato")
                         .WithMany()
-                        .HasForeignKey("TemporadaID");
+                        .HasForeignKey("ParteZapatoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CalzadosLunghi.Business.Zapato", "Zapato")
+                        .WithMany("ListaZapatoMateriales")
+                        .HasForeignKey("ZapatoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

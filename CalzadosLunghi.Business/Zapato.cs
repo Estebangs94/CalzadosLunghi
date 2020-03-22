@@ -6,12 +6,15 @@ namespace CalzadosLunghi.Business
 {
     public class Zapato
     {
+        public Zapato()
+        {
+            EstaActivo = true;
+        }
+
         public int ID { get; set; }
+        public int TemporadaId { get; set; }
         public Temporada Temporada { get; set; }
-        public IEnumerable<Material> Capellada { get; set; }
-        public Material ForroCapellada { get; set; }
-        public Material ForroPlantilla { get; set; }
-        public Material Puntera { get; set; }
-        public Material ContraFuerte { get; set; }
+        public List<ZapatoMaterial> ListaZapatoMateriales { get; set; }
+        public bool EstaActivo { get; set; }
     }
 }

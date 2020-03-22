@@ -4,18 +4,20 @@ using System.Text;
 
 namespace CalzadosLunghi.Business
 {
-    public class PrecioMaterial
+    public class ZapatoMaterial
     {
-        public PrecioMaterial()
+        public ZapatoMaterial()
         {
             EstaActivo = true;
         }
 
-        public int ID { get; set; }
+        public int ZapatoId { get; set; }
         public int MaterialId { get; set; }
-        public DateTime FechaVigencia { get; set; }
-        public DateTime? FechaFin { get; set; }
+        public int ParteZapatoId { get; set; }
+        public Zapato Zapato { get; set; }
         public Material Material { get; set; }
+        public int CantidadZapatosPorUnidad { get; set; }
+        public ParteZapato ParteZapato { get; set; }
         public bool EstaActivo { get; set; }
     }
 }

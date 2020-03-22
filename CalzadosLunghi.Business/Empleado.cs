@@ -4,17 +4,14 @@ using System.Text;
 
 namespace CalzadosLunghi.Business
 {
-    public class Color
+    public class Empleado
     {
-        public Color()
+        public Empleado()
         {
             EstaActivo = true;
         }
 
-        public int ID { get; set; }
-        public int MaterialId { get; set; }
-        public Material Material { get; set; }
-        public string Nombre { get; set; }
+        public int Id { get; set; }
         public bool EstaActivo { get; set; }
     }
 }

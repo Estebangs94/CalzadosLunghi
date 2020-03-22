@@ -4,6 +4,11 @@ namespace CalzadosLunghi.Business
 {
     public class TipoMaterial
     {
+        public TipoMaterial()
+        {
+            EstaActivo = true;
+        }
+
         public int ID { get; set; }
         [Required]
         public string Nombre { get; set; }
