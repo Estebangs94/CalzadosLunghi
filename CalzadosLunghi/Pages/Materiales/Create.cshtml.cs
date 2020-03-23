@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CalzadosLunghi.Business;
+using CalzadosLunghi.Data;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,39 +16,44 @@ namespace CalzadosLunghi.Pages.Materiales
     {
         private readonly IHtmlHelper _htmlHelper;
         private readonly IMaterialData _materialData;
-        private readonly IColorData _colorData;
+        private readonly ITipoMaterialData _tipoMaterialData;
 
         [BindProperty]
         public Material Material { get; set; }
         public IEnumerable<SelectListItem> UnidadDeMedida { get; set; }
-        public SelectList Colores { get; set; }
+        public IEnumerable<SelectListItem> TipoDeMateriales { get; set; }
 
-        public CreateModel(IHtmlHelper htmlHelper, IMaterialData materialData, IColorData colorData)
+        public CreateModel(IHtmlHelper htmlHelper, IMaterialData materialData, ITipoMaterialData tipoMaterialData)
         {
             _htmlHelper = htmlHelper;
             _materialData = materialData;
-            _colorData = colorData;
+            _tipoMaterialData = tipoMaterialData;
         }
 
         public IActionResult OnGet()
         {
             CargarUnidadesMedida();
-            CargarColores();
+            CargarTipoDeMateriales();
 
             return Page();
         }
 
-        private void CargarColores()
+        private void CargarTipoDeMateriales()
         {
-            var todos = _colorData.GetAll();
-            Colores = new SelectList(todos, "ID", "Nombre");
+            var datos = _tipoMaterialData.GetAll();
+
+            TipoDeMateriales = new SelectList(datos, "ID", "Nombre");
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var result = _materialData.Add(Material);
 
+            await _materialData.Commit();
 
-            return RedirectToPage("./Index");
+            TempData["Message"] = "Se ha creado un nuevo material";
+
+            return RedirectToPage("./Details", new { id = result.ID });
         }
 
         private void CargarUnidadesMedida()

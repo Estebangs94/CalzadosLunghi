@@ -23,7 +23,6 @@ namespace CalzadosLunghi.Business
 
         public int ID { get; set; }
         public int TipoMaterialId { get; set; }
-        public int ColorId { get; set; }
         public string Nombre { get; set; }
         [Display(Name ="Tipo de material")]
         public TipoMaterial TipoMaterial { get; set; }

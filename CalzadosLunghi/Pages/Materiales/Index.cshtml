@@ -17,3 +17,40 @@
 <h1>Lista de materiales</h1>
 <hr />
 
+
+<p>
+    <a class="btn btn-primary" asp-page="Create">Crear nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Material.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Material.UnidadDeMedida)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Materiales)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnidadDeMedida)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Detalles</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
