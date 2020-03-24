@@ -21,6 +21,7 @@ namespace CalzadosLunghi.Pages.Materiales
         [BindProperty]
         public Material Material { get; set; }
         public IEnumerable<SelectListItem> UnidadDeMedida { get; set; }
+        [BindProperty]
         public IEnumerable<SelectListItem> TipoDeMateriales { get; set; }
 
         public CreateModel(IHtmlHelper htmlHelper, IMaterialData materialData, ITipoMaterialData tipoMaterialData)

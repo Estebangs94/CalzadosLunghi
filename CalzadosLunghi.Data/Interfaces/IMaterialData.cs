@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace CalzadosLunghi.Data.Interfaces
 {
     public interface IMaterialData
-    {   
-            Material Add(Material material);
-            Material GetById(int? id);
-            Material Update(Material material);
-            Material Delete(int id);
-            IEnumerable<Material> GetAll();
-            Task<int> Commit();
+    {
+        Material Add(Material material);
+        Material GetById(int? id);
+        Material Update(Material material);
+        Material Delete(int id);
+        IEnumerable<Material> GetAllWithMaterialType();
+        IEnumerable<Material> GetAll();
+        Task<int> Commit();
 
     }
 }

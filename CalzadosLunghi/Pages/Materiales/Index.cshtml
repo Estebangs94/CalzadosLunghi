@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Material.UnidadDeMedida)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Material.TipoMaterial)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,9 +47,13 @@
                     @Html.DisplayFor(modelItem => item.UnidadDeMedida)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.TipoMaterial.Nombre)
+                </td>
+                <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Editar</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Detalles</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a>
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Eliminar</a> |
+                    <a asp-page="./Colores/Index" asp-route-materialId="@item.ID">Ver colores</a>
                 </td>
             </tr>
         }

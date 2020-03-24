@@ -2,32 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CalzadosLunghi.Business;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CalzadosLunghi.Pages.Materiales
+namespace CalzadosLunghi.Pages.Materiales.Colores
 {
     public class IndexModel : PageModel
     {
         private readonly IMaterialData _materialData;
 
-        [TempData]
-        public string Edit { get; set; }
-        [TempData]
-        public string Delete { get; set; }
+        public int MaterialId { get; set; }
+
         public IndexModel(IMaterialData materialData)
         {
             _materialData = materialData;
         }
 
-        public Material Material { get; set; }
-        public IEnumerable<Material> Materiales { get; set; }
-
-        public void OnGet()
+        public IActionResult OnGet(int materialId)
         {
-            Materiales = _materialData.GetAllWithMaterialType();
+            MaterialId = materialId;
+            var material = _materialData.GetById(materialId);
+
+            if(material == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
     }
 }

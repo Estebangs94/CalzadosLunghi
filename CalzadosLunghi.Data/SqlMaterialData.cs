@@ -45,9 +45,16 @@ namespace CalzadosLunghi.Data
             return _db.Materiales.Where(x => x.EstaActivo == true).ToList();
         }
 
+        public IEnumerable<Material> GetAllWithMaterialType()
+        {
+            return _db.Materiales.Where(m => m.EstaActivo)
+                .Include(m => m.TipoMaterial)
+                .ToList();
+        }
+
         public Material GetById(int? id)
         {
-            var material = _db.Materiales.First(x => x.ID == id && x.EstaActivo == true);
+            var material = _db.Materiales.FirstOrDefault(x => x.ID == id && x.EstaActivo == true);
             return material;
         }
 
