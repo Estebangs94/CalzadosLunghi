@@ -18,7 +18,13 @@ namespace CalzadosLunghi.Data
 
         public IEnumerable<Color> GetAll()
         {
-            return _db.Colores.Where(x => x.EstaActivo == true).ToList();
+            return _db.Colores.Where(x => x.EstaActivo).ToList();
+        }
+
+        public IEnumerable<Color> GetAllByMaterialId(int materialId)
+        {
+            return _db.Colores.Where(c => c.EstaActivo && materialId == c.MaterialId)
+                              .ToList();
         }
     }
 }

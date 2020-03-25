@@ -8,5 +8,6 @@ namespace CalzadosLunghi.Data.Interfaces
     public interface IColorData
     {
         IEnumerable<Color> GetAll();
+        IEnumerable<Color> GetAllByMaterialId(int materialId);
     }
 }
