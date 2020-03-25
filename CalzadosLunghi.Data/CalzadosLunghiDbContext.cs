@@ -11,7 +11,7 @@ namespace CalzadosLunghi.Data
         public CalzadosLunghiDbContext(DbContextOptions<CalzadosLunghiDbContext> options)
             :base(options)
         {
-
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<Zapato> Zapatos { get; set; }

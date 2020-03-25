@@ -10,6 +10,7 @@ namespace CalzadosLunghi.Data.Interfaces
     {
         Material Add(Material material);
         Material GetById(int? id);
+        public Material GetByIdWithMaterialType(int? id);
         Material Update(Material material);
         Material Delete(int id);
         IEnumerable<Material> GetAllWithMaterialType();

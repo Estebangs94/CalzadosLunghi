@@ -31,7 +31,7 @@ namespace CalzadosLunghi.Pages.Materiales
                 return NotFound();
             }
 
-            Material = _materialData.GetById(id);
+            Material = _materialData.GetByIdWithMaterialType(id);
 
             if (Material == null)
             {

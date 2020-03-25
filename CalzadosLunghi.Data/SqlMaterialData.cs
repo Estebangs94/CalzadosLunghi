@@ -42,7 +42,7 @@ namespace CalzadosLunghi.Data
 
         public IEnumerable<Material> GetAll()
         {
-            return _db.Materiales.Where(x => x.EstaActivo == true).ToList();
+            return _db.Materiales.Where(x => x.EstaActivo).ToList();
         }
 
         public IEnumerable<Material> GetAllWithMaterialType()
@@ -54,7 +54,15 @@ namespace CalzadosLunghi.Data
 
         public Material GetById(int? id)
         {
-            var material = _db.Materiales.FirstOrDefault(x => x.ID == id && x.EstaActivo == true);
+            var material = _db.Materiales.FirstOrDefault(x => x.ID == id && x.EstaActivo);
+            return material;
+        }
+
+        public Material GetByIdWithMaterialType(int? id)
+        {
+            var material = _db.Materiales
+                .Include(m => m.TipoMaterial)
+                .FirstOrDefault(x => x.ID == id && x.EstaActivo);
             return material;
         }
 

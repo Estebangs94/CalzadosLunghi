@@ -28,7 +28,8 @@ namespace CalzadosLunghi
         {
             services.AddRazorPages();
             services.AddDbContextPool<CalzadosLunghiDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("CalzadosLunghiDb"));
+                options.UseSqlServer(Configuration.GetConnectionString("CalzadosLunghiDb"))
+                       .EnableSensitiveDataLogging();
             });
             services.AddScoped<ITipoMaterialData, SqlTipoMaterialData>();
             services.AddScoped<IMaterialData, SqlMaterialData>();
