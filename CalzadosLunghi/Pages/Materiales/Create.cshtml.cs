@@ -48,6 +48,11 @@ namespace CalzadosLunghi.Pages.Materiales
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var result = _materialData.Add(Material);
 
             await _materialData.Commit();

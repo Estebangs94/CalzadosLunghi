@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CalzadosLunghi.Data
 {
@@ -16,6 +17,17 @@ namespace CalzadosLunghi.Data
             _db = db;
         }
 
+        public Color Add(Color color)
+        {
+            color.EstaActivo = true;
+            _db.Add(color);
+            return color;
+        }
+
+        public async Task<int> Commit()
+        {
+            return await _db.SaveChangesAsync();
+        }
         public IEnumerable<Color> GetAll()
         {
             return _db.Colores.Where(x => x.EstaActivo).ToList();

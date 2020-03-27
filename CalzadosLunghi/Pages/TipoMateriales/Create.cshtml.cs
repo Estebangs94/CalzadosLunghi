@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi.Pages.TipoMateriales
 {

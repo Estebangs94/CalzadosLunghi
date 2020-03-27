@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi.Pages.TipoMateriales
 {

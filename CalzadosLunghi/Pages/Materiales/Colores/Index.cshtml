@@ -9,6 +9,11 @@
     <div class="alert alert-info">@Model.Edit</div>
 }
 
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
 @if (Model.Delete != null)
 {
     <div class="alert alert-danger">@Model.Delete</div>
@@ -19,7 +24,7 @@
 
 
 <p>
-    <a class="btn btn-primary" asp-page="Create">Crear nuevo</a>
+    <a class="btn btn-primary" asp-page="./Create" asp-route-materialId="@Model.MaterialId">Crear nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -46,4 +51,6 @@
         }
     </tbody>
 </table>
+<a class="btn btn-secondary" asp-page="/Materiales/Index" >Volver a materiales</a>
+
 

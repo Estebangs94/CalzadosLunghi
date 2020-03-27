@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalzadosLunghi.Data
+namespace CalzadosLunghi.Data.Interfaces
 {
     public interface ITipoMaterialData
     {

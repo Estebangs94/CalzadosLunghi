@@ -22,6 +22,9 @@ namespace CalzadosLunghi.Pages.Materiales.Colores
         [TempData]
         public string Delete { get; set; }
 
+        [TempData]
+        public string Message { get; set; }
+
         [BindProperty]
         public IEnumerable<Color> ColoresMaterial { get; set; }
         public Material Material { get; set; }
