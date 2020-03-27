@@ -13,10 +13,12 @@ namespace CalzadosLunghi.Data
     public class SqlTipoMaterialData : ITipoMaterialData
     {
         private readonly CalzadosLunghiDbContext _db;
+        private readonly IMaterialData _materialData;
 
-        public SqlTipoMaterialData(CalzadosLunghiDbContext db)
+        public SqlTipoMaterialData(CalzadosLunghiDbContext db, IMaterialData materialData)
         {
             _db = db;
+            _materialData = materialData;
         }
 
         public TipoMaterial Add(TipoMaterial tipoMaterial)
@@ -37,7 +39,18 @@ namespace CalzadosLunghi.Data
             tipoMaterial.EstaActivo = false;
             var entity = _db.TipoMateriales.Attach(tipoMaterial);
             entity.State = EntityState.Modified;
-            
+
+            //buscamos entidades relacionadas y las eliminamos
+            //Materiales..
+            var materiales = _db.Materiales
+                .Where(m => m.TipoMaterialId == tipoMaterial.ID && m.EstaActivo)
+                .Include(m => m.Colores)
+                .ToList();
+
+            _materialData.DeleteMany(materiales);
+            //Sería mejor invocar un método de IMaterialData que se encargue de hacer la eliminación,
+            //ya que puede haber otras entidades relacionadas a Material. Le pasamos la coleccion de materiales
+
             return tipoMaterial;
         }
 

@@ -8,8 +8,19 @@
 <h1>Eliminar</h1>
 
 <h3>¿Está seguro que desea eliminar el siguiente Tipo de Material?</h3>
+<hr />
+
+@if (Model.Delete != null)
+{
+    <div class="alert alert-danger">@Model.Delete</div>
+}
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
 <div>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TipoMaterial.Nombre)
@@ -24,10 +35,10 @@
             @Html.DisplayFor(model => model.TipoMaterial.Codigo)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="TipoMaterial.ID" />
-        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
         <a asp-page="./Index">Volver a la lista</a>
     </form>
 </div>

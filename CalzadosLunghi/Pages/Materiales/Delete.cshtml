@@ -1,19 +1,25 @@
 ﻿@page "id:int"
-@model CalzadosLunghi.Pages.Materiales.DetailsModel
+@model CalzadosLunghi.Pages.Materiales.DeleteModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
+<h1>Eliminar</h1>
+
+<h3>¿Está seguro que desea eliminar el siguiente Tipo de Material?</h3>
+<hr />
+
+@if (Model.Delete != null)
+{
+    <div class="alert alert-danger">@Model.Delete</div>
+}
 
 @if (Model.Message != null)
 {
-    <div class="alert alert-success">@Model.Message</div>
+    <div class="alert alert-info">@Model.Message</div>
 }
 
-<h1>Detalles</h1>
 <div>
-    <h4>Material</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Material.Nombre)
@@ -39,5 +45,3 @@
     <a asp-page="./Edit" asp-route-id="@Model.Material.ID">Editar</a> |
     <a asp-page="./Index">Volver a la lista</a>
 </div>
-
-

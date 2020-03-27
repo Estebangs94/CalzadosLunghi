@@ -28,6 +28,16 @@ namespace CalzadosLunghi.Data
         {
             return await _db.SaveChangesAsync();
         }
+
+        public void DeleteMany(List<Color> colores)
+        {
+            foreach (var item in colores)
+            {
+                item.EstaActivo = false;
+            }
+            _db.Colores.UpdateRange(colores);
+        }
+
         public IEnumerable<Color> GetAll()
         {
             return _db.Colores.Where(x => x.EstaActivo).ToList();

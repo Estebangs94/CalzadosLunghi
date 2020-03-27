@@ -11,6 +11,7 @@ namespace CalzadosLunghi.Data.Interfaces
         Color Add(Color color);
         IEnumerable<Color> GetAll();
         IEnumerable<Color> GetAllByMaterialId(int materialId);
+        void DeleteMany(List<Color> colores);
         Task<int> Commit();
     }
 }

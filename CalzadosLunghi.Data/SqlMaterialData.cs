@@ -12,10 +12,12 @@ namespace CalzadosLunghi.Data
     public class SqlMaterialData : IMaterialData
     {
         private readonly CalzadosLunghiDbContext _db;
+        private readonly IColorData _colorData;
 
-        public SqlMaterialData(CalzadosLunghiDbContext db)
+        public SqlMaterialData(CalzadosLunghiDbContext db, IColorData colorData)
         {
             _db = db;
+            _colorData = colorData;
         }
 
         public Material Add(Material material)
@@ -40,6 +42,17 @@ namespace CalzadosLunghi.Data
             return material;
         }
 
+        public IEnumerable<Material> DeleteMany(List<Material> materiales)
+        {
+            foreach (var m in materiales)
+            {
+                m.EstaActivo = false;
+                _colorData.DeleteMany(m.Colores);
+            }
+            _db.Materiales.UpdateRange(materiales);
+            return materiales;
+        }
+
         public IEnumerable<Material> GetAll()
         {
             return _db.Materiales.Where(x => x.EstaActivo).ToList();
@@ -58,12 +71,27 @@ namespace CalzadosLunghi.Data
             return material;
         }
 
+        public Material GetByIdWithColors(int? id)
+        {
+            var material = _db.Materiales
+                .Include(m => m.Colores)
+                .FirstOrDefault(m => m.ID == id && m.EstaActivo);
+
+            return material;
+        }
+
         public Material GetByIdWithMaterialType(int? id)
         {
             var material = _db.Materiales
                 .Include(m => m.TipoMaterial)
                 .FirstOrDefault(x => x.ID == id && x.EstaActivo);
             return material;
+        }
+
+        public IEnumerable<Material> GetMaterialsForMaterialType(int materialTypeId)
+        {
+            var results = _db.Materiales.Where(m => m.EstaActivo && m.TipoMaterialId == materialTypeId);
+            return results;
         }
 
         public Material Update(Material material)

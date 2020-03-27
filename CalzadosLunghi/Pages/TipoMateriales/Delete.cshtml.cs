@@ -14,14 +14,19 @@ namespace CalzadosLunghi.Pages.TipoMateriales
     public class DeleteModel : PageModel
     {
         private readonly ITipoMaterialData _tipoMaterialData;
-
-        public DeleteModel(ITipoMaterialData tipoMaterialData)
-        {
-            _tipoMaterialData = tipoMaterialData;
-        }
+        private readonly IMaterialData _materialData;
 
         [BindProperty]
         public TipoMaterial TipoMaterial { get; set; }
+
+        public string Delete { get; set; }
+        public string Message { get; set; }
+
+        public DeleteModel(ITipoMaterialData tipoMaterialData, IMaterialData materialData)
+        {
+            _tipoMaterialData = tipoMaterialData;
+            _materialData = materialData;
+        }
 
         public  IActionResult OnGet(int? id)
         {
@@ -36,6 +41,17 @@ namespace CalzadosLunghi.Pages.TipoMateriales
             {
                 return NotFound();
             }
+
+            var materialesAsociados = _materialData.GetMaterialsForMaterialType(TipoMaterial.ID);
+            if(materialesAsociados.Count() > 0)
+            {
+                Delete = $"Éste tipo de material tiene asociado {materialesAsociados.Count()} materiales";
+            }
+            else
+            {
+                Message = $"Éste tipo de material no tiene materiales asociados";
+            }
+
             return Page();
         }
 
