@@ -6,7 +6,7 @@
 
 <h1>Eliminar</h1>
 
-<h3>¿Está seguro que desea eliminar el siguiente Tipo de Material?</h3>
+<h3>¿Está seguro que desea eliminar el siguiente Material?</h3>
 <hr />
 
 @if (Model.Delete != null)
@@ -42,6 +42,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Material.ID">Editar</a> |
-    <a asp-page="./Index">Volver a la lista</a>
+    <form method="post">
+        <input type="hidden" asp-for="Material.ID" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-page="./Index">Volver a la lista</a>
+    </form>
 </div>

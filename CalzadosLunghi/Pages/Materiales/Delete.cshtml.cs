@@ -30,7 +30,7 @@ namespace CalzadosLunghi.Pages.Materiales
                 return NotFound();
             }
 
-            Material = _materialData.GetByIdWithColors(id);
+            Material = _materialData.GetById(id);
             if(Material == null)
             {
                 return NotFound();
@@ -38,7 +38,14 @@ namespace CalzadosLunghi.Pages.Materiales
 
             if(Material.Colores.Count > 0)
             {
-                Delete = $"Éste material tiene asociado {Material.Colores.Count} colores";
+                if (Material.Colores.Count == 1)
+                {
+                    Delete = $"Éste material tiene asociado un color";
+                }
+                else
+                {
+                    Delete = $"Éste material tiene asociado {Material.Colores.Count} colores";
+                }
             }
             else
             {
@@ -46,6 +53,27 @@ namespace CalzadosLunghi.Pages.Materiales
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPost(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            Material = _materialData.GetById(id);
+            if(Material == null)
+            {
+                return NotFound();
+            }
+
+            _materialData.Delete(Material.ID);
+            await _materialData.Commit();
+
+            TempData["Delete"] = $"Se ha eliminado el material: {Material.Nombre}";
+
+            return RedirectToPage("./Index");
         }
     }
 }

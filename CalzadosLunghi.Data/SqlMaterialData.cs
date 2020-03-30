@@ -34,8 +34,15 @@ namespace CalzadosLunghi.Data
 
         public Material Delete(int id)
         {
-            var material = _db.Materiales.First(x => x.ID == id);
+            var material = _db.Materiales
+                .Include(t => t.TipoMaterial)
+                .Include(c => c.Colores)
+                .First(x => x.ID == id);
+
             material.EstaActivo = false;
+            //borrado de entidad relacionada delegada a servicio correspondiente
+            _colorData.DeleteMany(material.Colores);
+
             var entity = _db.Materiales.Attach(material);
             entity.State = EntityState.Modified;
 
@@ -47,7 +54,9 @@ namespace CalzadosLunghi.Data
             foreach (var m in materiales)
             {
                 m.EstaActivo = false;
-                _colorData.DeleteMany(m.Colores);
+
+                //borrado de entidad relacionada delegada a servicio correspondiente
+                _colorData.DeleteMany(m.Colores); 
             }
             _db.Materiales.UpdateRange(materiales);
             return materiales;
@@ -55,42 +64,26 @@ namespace CalzadosLunghi.Data
 
         public IEnumerable<Material> GetAll()
         {
-            return _db.Materiales.Where(x => x.EstaActivo).ToList();
-        }
-
-        public IEnumerable<Material> GetAllWithMaterialType()
-        {
-            return _db.Materiales.Where(m => m.EstaActivo)
-                .Include(m => m.TipoMaterial)
+            return _db.Materiales.Where(x => x.EstaActivo)
+                .Include(c => c.Colores)
+                .Include(t => t.TipoMaterial)
                 .ToList();
         }
 
         public Material GetById(int? id)
         {
-            var material = _db.Materiales.FirstOrDefault(x => x.ID == id && x.EstaActivo);
-            return material;
-        }
-
-        public Material GetByIdWithColors(int? id)
-        {
             var material = _db.Materiales
-                .Include(m => m.Colores)
-                .FirstOrDefault(m => m.ID == id && m.EstaActivo);
-
-            return material;
-        }
-
-        public Material GetByIdWithMaterialType(int? id)
-        {
-            var material = _db.Materiales
-                .Include(m => m.TipoMaterial)
+                .Include(c => c.Colores)
+                .Include(t => t.TipoMaterial)
                 .FirstOrDefault(x => x.ID == id && x.EstaActivo);
             return material;
         }
 
         public IEnumerable<Material> GetMaterialsForMaterialType(int materialTypeId)
         {
-            var results = _db.Materiales.Where(m => m.EstaActivo && m.TipoMaterialId == materialTypeId);
+            var results = _db.Materiales.Where(m => m.EstaActivo && m.TipoMaterialId == materialTypeId)
+                .Include(c => c.Colores)
+                .Include(t => t.TipoMaterial);
             return results;
         }
 

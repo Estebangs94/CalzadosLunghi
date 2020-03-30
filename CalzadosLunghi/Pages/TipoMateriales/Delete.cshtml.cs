@@ -64,11 +64,13 @@ namespace CalzadosLunghi.Pages.TipoMateriales
 
             TipoMaterial = _tipoMaterialData.GetById(id);
 
-            if (TipoMaterial != null)
+            if (TipoMaterial == null)
             {
-                _tipoMaterialData.Delete(TipoMaterial.ID);
-                await _tipoMaterialData.Commit();
+                return NotFound();
             }
+
+            _tipoMaterialData.Delete(TipoMaterial.ID);
+            await _tipoMaterialData.Commit();
 
             TempData["Delete"] = $"Se ha eliminado el tipo de material: {TipoMaterial.Nombre}";
 

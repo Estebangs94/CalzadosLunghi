@@ -51,6 +51,8 @@ namespace CalzadosLunghi.Data
             //Sería mejor invocar un método de IMaterialData que se encargue de hacer la eliminación,
             //ya que puede haber otras entidades relacionadas a Material. Le pasamos la coleccion de materiales
 
+            //Fue implementado el 27/03 
+
             return tipoMaterial;
         }
 

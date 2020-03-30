@@ -27,7 +27,7 @@ namespace CalzadosLunghi.Pages.Materiales
 
         public void OnGet()
         {
-            Materiales = _materialData.GetAllWithMaterialType();
+            Materiales = _materialData.GetAll();
         }
     }
 }
