@@ -37,7 +37,7 @@ namespace CalzadosLunghi.Data
             var material = _db.Materiales
                 .Include(t => t.TipoMaterial)
                 .Include(c => c.Colores)
-                .First(x => x.ID == id);
+                .First(x => x.ID == id && x.EstaActivo);
 
             material.EstaActivo = false;
             //borrado de entidad relacionada delegada a servicio correspondiente

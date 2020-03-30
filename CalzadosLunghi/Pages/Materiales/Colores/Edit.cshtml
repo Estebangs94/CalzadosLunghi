@@ -1,0 +1,38 @@
+﻿@page
+@model CalzadosLunghi.Pages.Materiales.Colores.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Color del material @Model.Color.Material.Nombre</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" asp-for="MaterialId" />
+
+                <input type="hidden" asp-for="Color.ID" />
+                <label asp-for="Color.Nombre" class="control-label"></label>
+                <input asp-for="Color.Nombre" class="form-control" />
+                <span asp-validation-for="Color.Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index" asp-route-materialId="@Model.MaterialId">Volver a la lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

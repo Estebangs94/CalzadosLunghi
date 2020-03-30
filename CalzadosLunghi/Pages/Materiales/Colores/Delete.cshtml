@@ -1,0 +1,35 @@
+﻿@page "id:int"
+@model CalzadosLunghi.Pages.Materiales.Colores.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Eliminar</h1>
+
+<h3>¿Está seguro que desea eliminar el siguiente Color?</h3>
+<hr />
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Color.Material)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Color.Material.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Color.Nombre)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form method="post">
+        <input type="hidden" asp-for="Color.ID" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-page="Index" asp-route-materialId="@Model.MaterialId">Volver a la lista</a>
+    </form>
+</div>
+
