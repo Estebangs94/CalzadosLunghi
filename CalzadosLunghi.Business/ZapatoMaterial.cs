@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace CalzadosLunghi.Business
 {
@@ -16,6 +17,7 @@ namespace CalzadosLunghi.Business
         public int ParteZapatoId { get; set; }
         public Zapato Zapato { get; set; }
         public Material Material { get; set; }
+        [Display(Name = "Rendimiento")]
         public int CantidadZapatosPorUnidad { get; set; }
         public ParteZapato ParteZapato { get; set; }
         public bool EstaActivo { get; set; }

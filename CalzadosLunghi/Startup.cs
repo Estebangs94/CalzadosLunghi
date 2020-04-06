@@ -34,6 +34,7 @@ namespace CalzadosLunghi
             services.AddScoped<ITipoMaterialData, SqlTipoMaterialData>();
             services.AddScoped<IMaterialData, SqlMaterialData>();
             services.AddScoped<IColorData, SqlColorData>();
+            services.AddScoped<IParteZapatoData, SqlParteZapatoData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

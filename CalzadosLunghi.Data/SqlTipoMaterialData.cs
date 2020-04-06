@@ -58,14 +58,14 @@ namespace CalzadosLunghi.Data
 
         public IEnumerable<TipoMaterial> GetAll()
         {
-            var result = _db.TipoMateriales.Where(x => x.EstaActivo == true)
+            var result = _db.TipoMateriales.Where(x => x.EstaActivo)
                 .ToList();
             return result;
         }
 
         public TipoMaterial GetById(int? id)
         {
-            var tipoMaterial = _db.TipoMateriales.First(x => x.ID == id && x.EstaActivo == true);
+            var tipoMaterial = _db.TipoMateriales.FirstOrDefault(x => x.ID == id && x.EstaActivo);
             return tipoMaterial;
         }
 
