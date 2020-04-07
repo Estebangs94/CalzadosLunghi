@@ -8,39 +8,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi.Pages.ParteZapatos
 {
     public class EditModel : PageModel
     {
-        private readonly CalzadosLunghi.Data.CalzadosLunghiDbContext _context;
+        private readonly IParteZapatoData _parteZapatoData;
 
-        public EditModel(CalzadosLunghi.Data.CalzadosLunghiDbContext context)
+        public EditModel(IParteZapatoData parteZapatoData)
         {
-            _context = context;
+            _parteZapatoData = parteZapatoData;
         }
 
         [BindProperty]
         public ParteZapato ParteZapato { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            ParteZapato = await _context.ParteZapatos.FirstOrDefaultAsync(m => m.ID == id);
+            ParteZapato = _parteZapatoData.GetById(id.Value);
 
             if (ParteZapato == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,11 +48,12 @@ namespace CalzadosLunghi.Pages.ParteZapatos
                 return Page();
             }
 
-            _context.Attach(ParteZapato).State = EntityState.Modified;
+            ParteZapato.EstaActivo = true;
+            var result = _parteZapatoData.Update(ParteZapato);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _parteZapatoData.Commit();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -66,12 +67,22 @@ namespace CalzadosLunghi.Pages.ParteZapatos
                 }
             }
 
+            TempData["Edit"] = $"Se ha editado el componente: {ParteZapato.Nombre}";
+
             return RedirectToPage("./Index");
         }
 
         private bool ParteZapatoExists(int id)
         {
-            return _context.ParteZapatos.Any(e => e.ID == id);
+            var result = _parteZapatoData.GetById(id);
+            if (result != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

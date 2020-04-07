@@ -18,6 +18,11 @@ namespace CalzadosLunghi.Pages.ParteZapatos
         public IEnumerable<ParteZapato> ParteZapatos { get; set; }
         public ParteZapato ParteZapato { get; set; }
 
+        [TempData]
+        public string Edit { get; set; }
+        [TempData]
+        public string Delete { get; set; }
+
         public IndexModel(IParteZapatoData parteZapatoData)
         {
             _parteZapatoData = parteZapatoData;

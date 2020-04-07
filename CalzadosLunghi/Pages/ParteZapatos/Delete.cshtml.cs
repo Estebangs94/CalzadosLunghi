@@ -7,34 +7,36 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CalzadosLunghi.Business;
 using CalzadosLunghi.Data;
+using CalzadosLunghi.Data.Interfaces;
 
 namespace CalzadosLunghi.Pages.ParteZapatos
 {
     public class DeleteModel : PageModel
     {
-        private readonly CalzadosLunghi.Data.CalzadosLunghiDbContext _context;
+        private readonly IParteZapatoData _parteZapatoData;
 
-        public DeleteModel(CalzadosLunghi.Data.CalzadosLunghiDbContext context)
+        public DeleteModel(IParteZapatoData parteZapatoData)
         {
-            _context = context;
+            _parteZapatoData = parteZapatoData;
         }
 
         [BindProperty]
         public ParteZapato ParteZapato { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IActionResult OnGet(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            ParteZapato = await _context.ParteZapatos.FirstOrDefaultAsync(m => m.ID == id);
+            ParteZapato = _parteZapatoData.GetById(id);
 
             if (ParteZapato == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
 
@@ -45,13 +47,15 @@ namespace CalzadosLunghi.Pages.ParteZapatos
                 return NotFound();
             }
 
-            ParteZapato = await _context.ParteZapatos.FindAsync(id);
+            ParteZapato = _parteZapatoData.GetById(id);
 
             if (ParteZapato != null)
             {
-                _context.ParteZapatos.Remove(ParteZapato);
-                await _context.SaveChangesAsync();
+                var result = _parteZapatoData.Delete(ParteZapato.ID);
+                await _parteZapatoData.Commit();
             }
+
+            TempData["Delete"] = $"Se ha eliminado el componente: {ParteZapato.Nombre}";
 
             return RedirectToPage("./Index");
         }
