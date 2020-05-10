@@ -3,23 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CalzadosLunghi.Data.Migrations
 {
-    public partial class inicial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ParteZapato",
+                name: "ParteZapatos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
+                    Nombre = table.Column<string>(nullable: false),
                     FormadoPorMultipleMateriales = table.Column<bool>(nullable: false),
                     EstaActivo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParteZapato", x => x.Id);
+                    table.PrimaryKey("PK_ParteZapatos", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +79,6 @@ namespace CalzadosLunghi.Data.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoMaterialId = table.Column<int>(nullable: false),
-                    ColorId = table.Column<int>(nullable: false),
                     Nombre = table.Column<string>(nullable: true),
                     UnidadDeMedida = table.Column<int>(nullable: false),
                     EstaActivo = table.Column<bool>(nullable: false)
@@ -102,7 +101,7 @@ namespace CalzadosLunghi.Data.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MaterialId = table.Column<int>(nullable: false),
-                    Nombre = table.Column<string>(nullable: true),
+                    Nombre = table.Column<string>(nullable: false),
                     EstaActivo = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -158,10 +157,10 @@ namespace CalzadosLunghi.Data.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ZapatoMaterial_ParteZapato_ParteZapatoId",
+                        name: "FK_ZapatoMaterial_ParteZapatos_ParteZapatoId",
                         column: x => x.ParteZapatoId,
-                        principalTable: "ParteZapato",
-                        principalColumn: "Id",
+                        principalTable: "ParteZapatos",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ZapatoMaterial_Zapatos_ZapatoId",
@@ -217,7 +216,7 @@ namespace CalzadosLunghi.Data.Migrations
                 name: "Materiales");
 
             migrationBuilder.DropTable(
-                name: "ParteZapato");
+                name: "ParteZapatos");
 
             migrationBuilder.DropTable(
                 name: "Zapatos");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalzadosLunghi.Data.Migrations
 {
     [DbContext(typeof(CalzadosLunghiDbContext))]
-    [Migration("20200324025614_color")]
-    partial class color
+    [Migration("20200408020630_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,7 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -72,7 +73,7 @@ namespace CalzadosLunghi.Data.Migrations
 
             modelBuilder.Entity("CalzadosLunghi.Business.ParteZapato", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -84,11 +85,12 @@ namespace CalzadosLunghi.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.ToTable("ParteZapato");
+                    b.ToTable("ParteZapatos");
                 });
 
             modelBuilder.Entity("CalzadosLunghi.Business.PrecioMaterial", b =>

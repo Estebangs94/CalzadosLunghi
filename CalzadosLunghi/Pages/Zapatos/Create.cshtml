@@ -6,5 +6,34 @@
 
 <h1>Create Zapato works!</h1>
 
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            @foreach (var item in Model.ListaParteZapatos)
+            {
+                if (item.FormadoPorMultipleMateriales)
+                {
 
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="MaterialSeleccionado.Nombre" class="control-label"></label>
+                        <select class="form-control" asp-for="MaterialSeleccionado.ID"
+                                asp-items="Model.MaterialesList">
+                            <span class="text-danger" asp-validation-for="MaterialSeleccionado.ID"></span>
+
+                        </select>
+                    </div>
+                }
+            }
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
