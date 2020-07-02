@@ -16,6 +16,7 @@ namespace CalzadosLunghi.Pages.Zapatos
         private readonly IMaterialData _materialData;
 
         public IEnumerable<ParteZapato> ListaParteZapatos { get; set; }
+        [BindProperty]
         public Material MaterialSeleccionado { get; set; }
         [BindProperty]
         public IEnumerable<SelectListItem> MaterialesList { get; set; }
@@ -23,6 +24,9 @@ namespace CalzadosLunghi.Pages.Zapatos
 
         [BindProperty]
         public IEnumerable<int> SelectedMaterials { get; set; }
+
+        [BindProperty]
+        public int[] selectedMaterials { get; set; }
 
         [BindProperty]
         public int SelectedMaterial { get; set; }
