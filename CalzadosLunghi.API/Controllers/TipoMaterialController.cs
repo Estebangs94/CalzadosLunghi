@@ -34,6 +34,7 @@ namespace CalzadosLunghi.API.Controllers
             return Ok(_mapper.Map<TipoMaterialDTO>(result));
         }
 
+        [HttpGet]
         public ActionResult<TipoMaterialDTO> Get(int id)
         {
             var tipoMaterial = _tipoMaterialData.GetById(id);
