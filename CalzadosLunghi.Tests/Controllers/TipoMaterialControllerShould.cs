@@ -37,7 +37,7 @@ namespace CalzadosLunghi.Tests.Controllers
             // Arrenge                    
 
             // Act
-            var actionResult = _controller.Create(_tipoMaterialForCreationDto);
+            var actionResult = _controller.CreateTipoMaterial(_tipoMaterialForCreationDto);
 
             // Assert
             var result = actionResult.Result as OkObjectResult;
@@ -58,7 +58,7 @@ namespace CalzadosLunghi.Tests.Controllers
             _tipoMaterialDataMock.Setup(x => x.GetById(It.IsAny<int>()));
 
             //Act
-            var actionResult = _controller.Get(It.IsAny<int>());
+            var actionResult = _controller.GetTipoMaterial(It.IsAny<int>());
 
             //Assert
             var result = actionResult.Result as NotFoundResult;
@@ -71,7 +71,7 @@ namespace CalzadosLunghi.Tests.Controllers
         public void ReturnTipoMaterial()
         {
             //Act
-            var actionResult = _controller.Get(It.IsAny<int>());
+            var actionResult = _controller.GetTipoMaterial(It.IsAny<int>());
 
             //Assert
             var result = actionResult.Result as OkObjectResult;

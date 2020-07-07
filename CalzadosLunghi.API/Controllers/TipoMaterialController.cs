@@ -24,7 +24,7 @@ namespace CalzadosLunghi.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<TipoMaterialDTO> Create(TipoMaterialForCreationDto tipoMaterialForCreation)
+        public ActionResult<TipoMaterialDTO> CreateTipoMaterial(TipoMaterialForCreationDto tipoMaterialForCreation)
         {
             //business logic should be implemented with another layer
             var tipoMaterial = _mapper.Map<TipoMaterial>(tipoMaterialForCreation);
@@ -35,7 +35,7 @@ namespace CalzadosLunghi.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<TipoMaterialDTO> Get(int id)
+        public ActionResult<TipoMaterialDTO> GetTipoMaterial(int id)
         {
             var tipoMaterial = _tipoMaterialData.GetById(id);
 
@@ -45,6 +45,25 @@ namespace CalzadosLunghi.API.Controllers
             }
 
             return Ok(_mapper.Map<TipoMaterialDTO>(tipoMaterial));
+        }
+
+        [HttpPut]
+        public ActionResult<TipoMaterialDTO> UpdateTipoMaterial(TipoMaterialForUpdatingDto tipoMaterialForUpdatingDto )
+        {
+            if(tipoMaterialForUpdatingDto.ID == 0)
+            {
+                return BadRequest();
+            }
+
+            var tipoMaterial = _tipoMaterialData.GetById(tipoMaterialForUpdatingDto.ID);
+            if(tipoMaterial == null)
+            {
+                return NotFound();
+            }
+
+            
+
+            return Ok();
         }
     }
 }
