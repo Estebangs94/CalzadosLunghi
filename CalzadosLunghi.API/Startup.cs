@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CalzadosLunghi.API.Middleware;
 using CalzadosLunghi.Data;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +33,7 @@ namespace CalzadosLunghi.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllersWithViews();
             services.AddDbContextPool<CalzadosLunghiDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("CalzadosLunghiDb"))
                        .EnableSensitiveDataLogging();
@@ -46,6 +50,8 @@ namespace CalzadosLunghi.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<FeaturesSwitchMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +60,7 @@ namespace CalzadosLunghi.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseMiddleware<FeatureSwitchAuthMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
