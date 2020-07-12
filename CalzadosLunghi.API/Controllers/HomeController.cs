@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CalzadosLunghi.API.ActionFilter;
+using CalzadosLunghi.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,23 @@ namespace CalzadosLunghi.API.Controllers
 
         }
 
+        [MobileActionFilter(Action = "NewContact", Controller = "Home")]
         [Route("contact-us")]
         [HttpGet]
         public ActionResult Contact()
         {
             return Ok();
+        }
+
+        [Route("new-contact-us")]
+        [HttpGet]
+        public ActionResult NewContact()
+        {
+            return Ok(new TipoMaterialDTO { 
+                Nombre = "Redireccion",
+                Codigo = "RED100",
+                ID = 100
+            });
         }
     }
 }
