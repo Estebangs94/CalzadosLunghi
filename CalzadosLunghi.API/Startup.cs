@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.S3;
 using AutoMapper;
 using CalzadosLunghi.API.Middleware;
 using CalzadosLunghi.Data;
@@ -42,7 +43,8 @@ namespace CalzadosLunghi.API
             services.AddScoped<IMaterialData, SqlMaterialData>();
             services.AddScoped<IColorData, SqlColorData>();
             services.AddScoped<IParteZapatoData, SqlParteZapatoData>();
-
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
