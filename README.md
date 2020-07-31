@@ -1,5 +1,10 @@
 # CalzadosLunghi
-Web project for the distributor Calzados Lunghi
+This is not a real project, mostly for trying out different things in .NET Core.
 
-Developed on ASP.NET Core 3.1 with Razor pages as the view, with Boostrap, Jquery and CSS.
-Data access implemented as services with Entity Framework Core 3.1, relying on dependency injection. Microsoft Sql Server Database.
+Some relevant things about this solution:
+  -	NET Core 3.1 RESTful API
+  -	Entity Framework Core
+  -	Unit testing following TDD
+  -	Custom middleware
+  -	Action filters
+  -	Endpoints for uploading files to AWS S3 buckets
