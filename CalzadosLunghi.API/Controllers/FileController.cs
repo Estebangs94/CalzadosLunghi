@@ -1,8 +1,10 @@
 ﻿using CalzadosLunghi.API.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CalzadosLunghi.API.Controllers
@@ -14,11 +16,11 @@ namespace CalzadosLunghi.API.Controllers
         public const string FilePath = "C:/Users/Esteban/Documents/filesTest/";
 
         [HttpPost]
-        public ActionResult CreateFile(FileValuesDto fileValuesDto)
+        public async Task<ActionResult> CreateFile(FileValuesDto fileValuesDto)
         {
             var path = String.Concat(FilePath, fileValuesDto.FileName);
 
-            
+
             var logFile = System.IO.File.Create(path);
             var logWriter = new System.IO.StreamWriter(logFile);
 
@@ -27,7 +29,27 @@ namespace CalzadosLunghi.API.Controllers
 
             logWriter.Dispose();
 
-            return Ok();
-        }        
+            using (var httpClient = new HttpClient())
+            {
+                var parameters = new Dictionary<string, string>();
+                var encodedContent = new FormUrlEncodedContent(parameters);
+
+                try
+                {
+                    var response = await httpClient.PostAsync("https://localhost:44374/api/aws", encodedContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return Ok("Your file was succesfully created and uploaded to AWS!");
+                    }
+
+                    else return Problem("Your file wasn't able to be uploaded");
+
+                }
+                catch(Exception e)
+                {
+                    return Problem($"There was an error {e.Message}", $"{e.InnerException}");
+                }
+            };
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace CalzadosLunghi.API.Controllers
     public class AwsController : ControllerBase
     {
         private const string bucketName = "testbucketesteban";
-        private const string filePath = "C:/Users/Esteban/Documents/filesTest/test1.txt";
+        private const string filePath = "C:/Users/Esteban/Documents/filesTest/testFiles.txt";
 
         private readonly IAmazonS3 _s3Client;
 
