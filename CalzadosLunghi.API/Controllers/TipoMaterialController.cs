@@ -1,5 +1,5 @@
 ﻿using CalzadosLunghi.API.DTO;
-using CalzadosLunghi.Business;
+using CalzadosLunghi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

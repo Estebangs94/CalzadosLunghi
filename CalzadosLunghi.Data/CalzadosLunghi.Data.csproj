@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CalzadosLunghi.Business\CalzadosLunghi.Business.csproj" />
+    <ProjectReference Include="..\CalzadosLunghi.Business\CalzadosLunghi.Entities.csproj" />
   </ItemGroup>
 
 </Project>

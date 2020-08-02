@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CalzadosLunghi.Business
+namespace CalzadosLunghi.Entities
 {
     public class PrecioMaterial
     {

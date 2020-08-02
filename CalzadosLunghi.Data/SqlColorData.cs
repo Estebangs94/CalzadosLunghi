@@ -1,4 +1,4 @@
-﻿using CalzadosLunghi.Business;
+﻿using CalzadosLunghi.Entities;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;

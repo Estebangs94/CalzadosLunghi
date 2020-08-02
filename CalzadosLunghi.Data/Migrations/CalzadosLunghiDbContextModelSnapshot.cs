@@ -19,7 +19,7 @@ namespace CalzadosLunghi.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Color", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Color", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("Colores");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Material", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Material", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -69,7 +69,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("Materiales");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.ParteZapato", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.ParteZapato", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("ParteZapatos");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.PrecioMaterial", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.PrecioMaterial", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -117,7 +117,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("PrecioMateriales");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Temporada", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Temporada", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -138,7 +138,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("Temporadas");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.TipoMaterial", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.TipoMaterial", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("TipoMateriales");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Zapato", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Zapato", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("Zapatos");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.ZapatoMaterial", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.ZapatoMaterial", b =>
                 {
                     b.Property<int>("ZapatoId")
                         .HasColumnType("int");
@@ -207,57 +207,57 @@ namespace CalzadosLunghi.Data.Migrations
                     b.ToTable("ZapatoMaterial");
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Color", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Color", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Material", "Material")
+                    b.HasOne("CalzadosLunghi.Entities.Material", "Material")
                         .WithMany("Colores")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Material", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Material", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.TipoMaterial", "TipoMaterial")
+                    b.HasOne("CalzadosLunghi.Entities.TipoMaterial", "TipoMaterial")
                         .WithMany()
                         .HasForeignKey("TipoMaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.PrecioMaterial", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.PrecioMaterial", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Material", "Material")
+                    b.HasOne("CalzadosLunghi.Entities.Material", "Material")
                         .WithMany()
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.Zapato", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.Zapato", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Temporada", "Temporada")
+                    b.HasOne("CalzadosLunghi.Entities.Temporada", "Temporada")
                         .WithMany("Zapatos")
                         .HasForeignKey("TemporadaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CalzadosLunghi.Business.ZapatoMaterial", b =>
+            modelBuilder.Entity("CalzadosLunghi.Entities.ZapatoMaterial", b =>
                 {
-                    b.HasOne("CalzadosLunghi.Business.Material", "Material")
+                    b.HasOne("CalzadosLunghi.Entities.Material", "Material")
                         .WithMany("ZapatoMateriales")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CalzadosLunghi.Business.ParteZapato", "ParteZapato")
+                    b.HasOne("CalzadosLunghi.Entities.ParteZapato", "ParteZapato")
                         .WithMany()
                         .HasForeignKey("ParteZapatoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CalzadosLunghi.Business.Zapato", "Zapato")
+                    b.HasOne("CalzadosLunghi.Entities.Zapato", "Zapato")
                         .WithMany("ListaZapatoMateriales")
                         .HasForeignKey("ZapatoId")
                         .OnDelete(DeleteBehavior.Cascade)

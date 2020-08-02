@@ -1,4 +1,4 @@
-﻿using CalzadosLunghi.Business;
+﻿using CalzadosLunghi.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

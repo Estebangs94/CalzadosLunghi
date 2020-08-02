@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Transfer;
+using CalzadosLunghi.API.DTO;
 
 namespace CalzadosLunghi.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace CalzadosLunghi.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> UploadFile()
+        public async Task<ActionResult> UploadSpecificFile()
         {
             try
             {
@@ -45,5 +46,7 @@ namespace CalzadosLunghi.API.Controllers
 
             return Ok();
         }
+
+        
     }
 }

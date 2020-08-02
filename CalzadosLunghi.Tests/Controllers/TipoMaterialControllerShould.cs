@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CalzadosLunghi.API.Controllers;
 using CalzadosLunghi.API.DTO;
-using CalzadosLunghi.Business;
+using CalzadosLunghi.Entities;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

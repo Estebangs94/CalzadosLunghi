@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace CalzadosLunghi.Business
+namespace CalzadosLunghi.Entities
 {
     public class ZapatoMaterial
     {

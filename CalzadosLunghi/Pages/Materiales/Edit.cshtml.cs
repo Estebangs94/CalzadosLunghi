@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CalzadosLunghi.Business;
+using CalzadosLunghi.Entities;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using static CalzadosLunghi.Business.Material;
+using static CalzadosLunghi.Entities.Material;
 
 namespace CalzadosLunghi.Pages.Materiales
 {

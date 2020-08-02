@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CalzadosLunghi.Business
+namespace CalzadosLunghi.Entities
 {
     public class ParteZapato
     {

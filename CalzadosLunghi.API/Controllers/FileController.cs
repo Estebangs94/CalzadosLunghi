@@ -37,19 +37,27 @@ namespace CalzadosLunghi.API.Controllers
                 try
                 {
                     var response = await httpClient.PostAsync("https://localhost:44374/api/aws", encodedContent);
-                    if (response.IsSuccessStatusCode)
+                    if (!response.IsSuccessStatusCode)
                     {
-                        return Ok("Your file was succesfully created and uploaded to AWS!");
+                       return Problem("Your file wasn't able to be uploaded");            
                     }
-
-                    else return Problem("Your file wasn't able to be uploaded");
-
+                    
+                    return Ok("Your file was succesfully created and uploaded to AWS!");
                 }
                 catch(Exception e)
                 {
                     return Problem($"There was an error {e.Message}", $"{e.InnerException}");
                 }
             };
+        }
+
+        [HttpPost]
+        [Route("/createandupload")]
+        public async Task<IActionResult> CreateAndUploadFile(FileToUploadDto fileToUploadDto)
+        {
+
+
+            return Ok();
         }
     }
 }
