@@ -21,6 +21,7 @@ namespace CalzadosLunghi.Data
         public DbSet<Temporada> Temporadas { get; set; }
         public DbSet<Color> Colores { get; set; }
         public DbSet<ParteZapato> ParteZapatos { get; set; }
+        public DbSet<FileValues> FilesValues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

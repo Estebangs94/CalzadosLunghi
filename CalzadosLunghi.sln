@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalzadosLunghi.API", "Calza
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalzadosLunghi.Tests", "CalzadosLunghi.Tests\CalzadosLunghi.Tests.csproj", "{961CA878-CB99-4D08-8ACA-173964B4C824}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalzadosLunghi.Core", "CalzadosLunghi.Core\CalzadosLunghi.Core.csproj", "{23154664-6155-464F-B2D7-5FC50087AC89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{961CA878-CB99-4D08-8ACA-173964B4C824}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{961CA878-CB99-4D08-8ACA-173964B4C824}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{961CA878-CB99-4D08-8ACA-173964B4C824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23154664-6155-464F-B2D7-5FC50087AC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23154664-6155-464F-B2D7-5FC50087AC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23154664-6155-464F-B2D7-5FC50087AC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23154664-6155-464F-B2D7-5FC50087AC89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

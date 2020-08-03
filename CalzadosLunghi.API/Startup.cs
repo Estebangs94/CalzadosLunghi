@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Amazon.S3;
 using AutoMapper;
 using CalzadosLunghi.API.Middleware;
+using CalzadosLunghi.Core.Implementations;
+using CalzadosLunghi.Core.Interfaces;
 using CalzadosLunghi.Data;
 using CalzadosLunghi.Data.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -43,8 +45,12 @@ namespace CalzadosLunghi.API
             services.AddScoped<IMaterialData, SqlMaterialData>();
             services.AddScoped<IColorData, SqlColorData>();
             services.AddScoped<IParteZapatoData, SqlParteZapatoData>();
+
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
+
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IFileCloudProviderService, AmazonFileService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CalzadosLunghi.Core\CalzadosLunghi.Core.csproj" />
     <ProjectReference Include="..\CalzadosLunghi.Data\CalzadosLunghi.Data.csproj" />
   </ItemGroup>
 

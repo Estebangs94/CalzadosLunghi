@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace CalzadosLunghi.API.DTO
 {
-    public class FileValuesDto
+    public class FileForCreationDto
     {
-        public int ID { get; set; }
         public string FileName { get; set; }
         public string Text { get; set; }
     }

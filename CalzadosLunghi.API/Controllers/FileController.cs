@@ -1,4 +1,7 @@
-﻿using CalzadosLunghi.API.DTO;
+﻿using AutoMapper;
+using CalzadosLunghi.API.DTO;
+using CalzadosLunghi.Core.Interfaces;
+using CalzadosLunghi.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,17 +18,28 @@ namespace CalzadosLunghi.API.Controllers
     {
         public const string FilePath = "C:/Users/Esteban/Documents/filesTest/";
 
-        [HttpPost]
-        public async Task<ActionResult> CreateFile(FileValuesDto fileValuesDto)
+        private readonly IFileService _fileService;
+        private readonly IMapper _mapper;
+        private readonly IFileCloudProviderService _fileCloudProviderService;
+
+        public FileController(IFileService fileCreationService, IMapper mapper, IFileCloudProviderService fileCloudProviderService)
         {
-            var path = String.Concat(FilePath, fileValuesDto.FileName);
+            _fileService = fileCreationService;
+            _mapper = mapper;
+            _fileCloudProviderService = fileCloudProviderService;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateFile(FileForCreationDto fileForCreationDto)
+        {
+            var path = String.Concat(FilePath, fileForCreationDto.FileName);
 
 
             var logFile = System.IO.File.Create(path);
             var logWriter = new System.IO.StreamWriter(logFile);
 
             logWriter.WriteLine($"Your file was created at: {path}");
-            logWriter.WriteLine($"Your text: {fileValuesDto.Text}");
+            logWriter.WriteLine($"Your text: {fileForCreationDto.Text}");
 
             logWriter.Dispose();
 
@@ -52,12 +66,19 @@ namespace CalzadosLunghi.API.Controllers
         }
 
         [HttpPost]
-        [Route("/createandupload")]
-        public async Task<IActionResult> CreateAndUploadFile(FileToUploadDto fileToUploadDto)
+        [Route("createandupload")]
+        public async Task<IActionResult> CreateAndUploadFile(FileForCreationDto fileForCreationDto)
         {
+            var fileValues = await _fileService.CreateFile(_mapper.Map<FileValues>(fileForCreationDto));
 
+            var error = await _fileCloudProviderService.UploadFile(fileValues);
 
-            return Ok();
+            if(error.HasError)
+            {
+                return Problem(error.Message);
+            }
+
+            return Ok("Your file was created and uploaded to AWS!");
         }
     }
 }
